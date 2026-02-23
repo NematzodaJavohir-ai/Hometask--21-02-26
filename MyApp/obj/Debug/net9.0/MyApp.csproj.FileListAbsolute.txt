@@ -21,3 +21,4 @@ C:\Users\j7\OneDrive\Desktop\C#\ADO.NET\ConsoleApp\MyApp\obj\Debug\net9.0\refint
 C:\Users\j7\OneDrive\Desktop\C#\ADO.NET\ConsoleApp\MyApp\obj\Debug\net9.0\MyApp.pdb
 C:\Users\j7\OneDrive\Desktop\C#\ADO.NET\ConsoleApp\MyApp\obj\Debug\net9.0\MyApp.genruntimeconfig.cache
 C:\Users\j7\OneDrive\Desktop\C#\ADO.NET\ConsoleApp\MyApp\obj\Debug\net9.0\ref\MyApp.dll
+C:\Users\j7\OneDrive\Desktop\C#\ADO.NET\ConsoleApp\MyApp\obj\Debug\net9.0\MyApp.sourcelink.json

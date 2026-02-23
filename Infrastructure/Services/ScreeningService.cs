@@ -131,4 +131,67 @@ public class ScreeningService : IScreeningService
             }
         }
     }
+
+    public List<Screening> GetAllScreeningsOrderByScreeningtime()
+    {
+        using var connection = new NpgsqlConnection(connectionString);
+
+        connection.Open();
+        var sqlSelect = "SELECT * FROM screenings order by screening_time ";
+
+        using var command = new NpgsqlCommand(sqlSelect, connection);
+
+        var screenings = new List<Screening>();
+        using var reader = command.ExecuteReader();
+
+        while (reader.Read())
+        {
+            screenings.Add(new Screening
+            {
+                Id = reader.GetInt32(0),
+                MovieId = reader.GetInt32(1),
+                TheaterId = reader.GetInt32(2),
+                ScreeningTime = reader.GetDateTime(3),
+                TicketPrice = reader.GetDecimal(4),
+                AvailableSeats = reader.GetInt32(5)
+            });
+        }
+        return screenings;
+
+    }
+
+    public List<Screening> GetFirstFiveScreenings()
+    {
+        using var connection = new NpgsqlConnection(connectionString);
+
+        connection.Open();
+        var sqlSelect = "SELECT * FROM screenings limit 5";
+
+        using var command = new NpgsqlCommand(sqlSelect, connection);
+
+        var screenings = new List<Screening>();
+        using var reader = command.ExecuteReader();
+
+
+        while (reader.Read())
+        {
+            screenings.Add(new Screening
+            {
+                Id = reader.GetInt32(0),
+                MovieId = reader.GetInt32(1),
+                TheaterId = reader.GetInt32(2),
+                ScreeningTime = reader.GetDateTime(3),
+                TicketPrice = reader.GetDecimal(4),
+                AvailableSeats = reader.GetInt32(5)
+            });
+        }
+        return screenings;
+
+
+
+    }
 }
+
+
+
+

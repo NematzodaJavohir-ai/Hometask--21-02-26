@@ -1,125 +1,106 @@
-﻿using Infrastructure.Services;
+﻿using System.ComponentModel.Design;
+using Infrastructure.Services;
 var movieService = new MovieService();
 var screeningService = new ScreeningService();
 var ticketService = new TicketService();
 var theaterService = new TheaterService();
-//Task1
-/*
-var allMovies = movieService.GetAllMovies();
-var comedyMovies = allMovies.Where(m => m.Genre == "Drama").ToList();
-foreach (var movie in comedyMovies)
+//task--1
+foreach (var item in movieService.GetMoviesByGenre("Drama"))
 {
-    Console.WriteLine($"ID: {movie.Id} Name: {movie.Title}Director: {movie.Director}");
+    Console.WriteLine(item.Title);
+    Console.WriteLine(item.Director);
+    Console.WriteLine(item.Year);
+    Console.WriteLine(item.Genre);
+    Console.WriteLine(item.Description);
+    Console.WriteLine("__________________________");
 }
-*/
-//Task-2
-/*
-var allMovies = movieService.GetAllMovies();
-var uniqueDirectors = allMovies
-    .Select(m => m.Director)
-    .Distinct()
-    .ToList();
-foreach (var director in uniqueDirectors)
+//task--2
+int[] years = {2019,2021,2020};
+var directors=movieService.GetUniqueDirectorsByYears(years);
+foreach (var item in directors)
 {
-    Console.WriteLine(director);
+    Console.WriteLine(item);
+    Console.WriteLine();
 }
-*/
-//task-3
-/*
-var screenings = screeningService.GetAllScreenings();
-var sortedScreenings = screenings.OrderBy(s => s.ScreeningTime).ToList();
-foreach (var s in sortedScreenings)
+//task--3
+foreach (var item in screeningService.GetAllScreeningsOrderByScreeningtime())
 {
-    Console.WriteLine($"Date: {s.ScreeningTime:dd.MM HH:mm}  film: {s.MovieId} | price: {s.TicketPrice}");
+    Console.WriteLine(item.MovieId);
+    Console.WriteLine(item.ScreeningRoom);
+    Console.WriteLine(item.TicketPrice);
+    Console.WriteLine(item.TheaterId);
+    Console.WriteLine(item.ScreeningTime);
+    Console.WriteLine("_______________________");
 }
-*/
-//taskk-4
-/*
-var allMovies = movieService.GetAllMovies();
-
-var sortedMovies = allMovies.OrderByDescending(m => m.Year).ToList();
-
-foreach (var movie in sortedMovies)
+//task-4
+foreach (var item in movieService.GetMoviesOrderByYear())
 {
-    Console.WriteLine($"Year: {movie.Year} | Title: {movie.Title} | Director: {movie.Director}");
+    Console.WriteLine(item.Title);
+    Console.WriteLine(item.Director);
+    Console.WriteLine(item.Year);
+    Console.WriteLine(item.Genre);
+    Console.WriteLine(item.Description);
+    Console.WriteLine("__________________________");
 }
-*/
 //task-5
-/*
-var screenings = screeningService.GetAllScreenings();
-
-var top5Screenings = screenings.Take(5).ToList();
-
-foreach (var s in top5Screenings)
+foreach (var item in screeningService.GetFirstFiveScreenings())
 {
-    Console.WriteLine($"Date: {s.ScreeningTime:dd.MM HH:mm} | Film ID: {s.MovieId} | Price: {s.TicketPrice}");
+    Console.WriteLine(item.MovieId);
+    Console.WriteLine(item.ScreeningRoom);
+    Console.WriteLine(item.TicketPrice);
+    Console.WriteLine(item.TheaterId);
+    Console.WriteLine(item.ScreeningTime);
+    Console.WriteLine("_______________________");
 }
-*/
 //task-6
-/*
-var screenings = screeningService.GetAllScreenings();
-var screeningCounts = screenings.GroupBy(s => s.MovieId)
-.Select(group => new 
-    { 
-        MovieId = group.Key, 
-        Count = group.Count() 
-    });
-
-foreach (var item in screeningCounts)
+var screenings = movieService.GetScreeningCountsMovie();
+if (screenings.Count == 0)
 {
-    Console.WriteLine($"Film ID: {item.MovieId} | Screenings: {item.Count}");
+    Console.WriteLine("seansi ne naydeni");
 }
-*/
-//task-7
-
-//task-8
-/*
-var ticketService = new TicketService();
-var allMovies = movieService.GetAllMovies();
-var allScreenings = screeningService.GetAllScreenings();
-var allTickets = ticketService.GetAllTickets();
-
-foreach (var movie in allMovies)
+else
 {
-    var movieScreeningIds = allScreenings.Where(s => s.MovieId == movie.Id).Select(s => s.Id);
-    int count = allTickets.Count(t => movieScreeningIds.Contains(t.ScreeningId));
-
-    Console.WriteLine($"{movie.Title}: {count} sold");
-}
-*/
-//task-9
-/*
-int targetMovieId = 1;
-
-var screenings = screeningService.GetAllScreenings();
-var tickets = ticketService.GetAllTickets();
-
-var result = tickets.Where(t => screenings.Any(s => s.Id == t.ScreeningId && s.MovieId == targetMovieId));
-
-foreach (var t in result)
-{
-    Console.WriteLine($"Ticket: {t.Id} | Name: {t.CustomerName} | Seat: {t.SeatNumber}");
-}
-*/
-//task-10
-/*
-var movies = movieService.GetAllMovies();
-var screenings = screeningService.GetAllScreenings();
-var theaters = theaterService.GetAllTheaters();
-
-var result = screenings
-    .Join(movies, s => s.MovieId, m => m.Id, (s, m) => new { s, m })
-    .Join(theaters, combined => combined.s.TheaterId, t => t.Id, (combined, t) => new
+    foreach (var item in screenings)
     {
-        MovieTitle = combined.m.Title,
-        ScreeningTime = combined.s.ScreeningTime,
-        TheaterName = t.Name
-    });
-
-foreach (var item in result)
-{
-    Console.WriteLine($"{item.MovieTitle}|{item.ScreeningTime:dd.MM HH:mm} | {item.TheaterName}");
+        Console.WriteLine($"Movie_id:{item.MovieId}|Kol_seansov:{item.ScreeningCount}");
+        Console.WriteLine();
+    }
 }
-*/
+//task-7
+Console.Write("napishite imya kinotetra:");
+string a = Console.ReadLine();
+
+foreach (var item in ticketService.GetTicketandTheatres(a))
+{
+    Console.WriteLine($"Bilet nomer:{item.ticket_id}|kinoteatr:{item.theater_name}");
+    Console.WriteLine();
+}
+//task-8
+var ticketcount = movieService.GetTotalTicketsPerMovies();
+
+foreach (var item in ticketcount)
+{
+    Console.WriteLine($"film: {item.MovieTitle} | Tickets sold: {item.TotalTickets}");
+     Console.WriteLine();
+}
+// task-9
+Console.Write("Vvedite nazvanie filma: ");
+string movieName = Console.ReadLine();
+
+var tickets = movieService.GetTicketsByMovieTitle(movieName);
+
+foreach (var item in tickets)
+{
+    Console.WriteLine($"Ticket ID: {item.TicketId} | Movie: {item.MovieTitle} | Time: {item.ScreeningTime}");
+    Console.WriteLine();
+}
+// task-10
+var fullDetails = movieService.GetFullScreeningDetails();
+
+foreach (var item in fullDetails)
+{
+    Console.WriteLine($"Movie: {item.MovieTitle} | Time: {item.ScreeningTime} | Theater: {item.TheaterName}");
+    Console.WriteLine();
+}
 
 

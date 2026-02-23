@@ -126,4 +126,30 @@ public int DeleteTicket(int id)
         }
     }
 }
+
+    public List<TicketswithTheatrs> GetTicketandTheatres(string thname)
+    {
+        var tickets = new List<TicketswithTheatrs>();
+        using var connection = new NpgsqlConnection(connectionString);
+        connection.Open();
+      
+        const string sql = @"select t.id,th.name from tickets as t  join screenings as s on t.screening_id=s.id
+                                                                    join theaters as th on
+                                                                     s.theater_id=th.id where th.name =@thname ";
+
+                                                                    
+        using var command = new NpgsqlCommand(sql,connection);
+        command.Parameters.AddWithValue("thname",thname);
+        using var reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            tickets.Add(new TicketswithTheatrs
+            {
+                ticket_id=reader.GetInt32(0),
+                theater_name=reader.GetString(1)
+            });
+        }
+        return tickets;
+
+    }
 }

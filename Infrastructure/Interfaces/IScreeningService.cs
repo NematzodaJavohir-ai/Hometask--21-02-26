@@ -10,4 +10,7 @@ List<Screening> GetAllScreenings();
 Screening? GetScreeningById(int id);
 int UpdateScreening(Screening screening);
 int DeleteScreening(int id);
+List<Screening> GetAllScreeningsOrderByScreeningtime();
+List<Screening> GetFirstFiveScreenings();
+
 }

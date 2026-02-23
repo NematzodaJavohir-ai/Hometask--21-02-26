@@ -13,3 +13,4 @@ C:\Users\j7\OneDrive\Desktop\C#\ADO.NET\ConsoleApp\Infrastructure\obj\Debug\net9
 C:\Users\j7\OneDrive\Desktop\C#\ADO.NET\ConsoleApp\Infrastructure\obj\Debug\net9.0\refint\Infrastructure.dll
 C:\Users\j7\OneDrive\Desktop\C#\ADO.NET\ConsoleApp\Infrastructure\obj\Debug\net9.0\Infrastructure.pdb
 C:\Users\j7\OneDrive\Desktop\C#\ADO.NET\ConsoleApp\Infrastructure\obj\Debug\net9.0\ref\Infrastructure.dll
+C:\Users\j7\OneDrive\Desktop\C#\ADO.NET\ConsoleApp\Infrastructure\obj\Debug\net9.0\Infrastructure.sourcelink.json
